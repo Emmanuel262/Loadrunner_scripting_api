@@ -1,0 +1,112 @@
+<%- include('partials/fullHeader'); -%>
+
+<section class="edit_data_needed">
+  <div class="profile-edit">
+    <h1 class="primary--header">Edit a bid to meet your needs</h1>
+    <form
+      action="/api/v1/products/edit/<%= data._id %>?_method=PATCH"
+      class="edit__form"
+      autocomplete="off"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="image-edit__container">
+        <small class="img_selection_error"
+          >Maximum number of images must be 2</small
+        >
+        <input
+          multiple="multiple"
+          type="file"
+          name="product_photos"
+          id="inptFile"
+        />
+        <% if (data.product_photos) { %>
+        <h6>Available images</h6>
+        <div class="available_images_edit">
+          <% data.product_photos.forEach((photo) => { %>
+          <small><%= photo.replace(/./g, '') %></small>
+          <img class="amazing_image_available" src="<%= photo.replace("./", "/")
+          %>" crossorigin="anonymous" alt="" /> <%}) %>
+        </div>
+        <%}%>
+      </div>
+      <input type="hidden" autocomplete="false" />
+      <div class="form-control">
+        <label for="productTitle" class="name_label">Product Title</label>
+        <input
+          type="text"
+          class="product_title"
+          name="productTitle"
+          id="product_title"
+          value="<%= data.productTitle %>"
+        />
+      </div>
+      <div class="form-control">
+        <label for="initial_bid" class="name_label">Initial bid value</label>
+        <input
+          type="text"
+          class="initial_bid"
+          name="initial_bid"
+          id="initial_bid"
+          value="<%= data.initial_bid %>"
+        />
+      </div>
+      <div class="form-control">
+        <label for="location" class="name_label">Location</label>
+        <input
+          type="text"
+          class="initial_bid"
+          name="location"
+          id="location"
+          value="<%= data.location %>"
+        />
+      </div>
+      <div class="form-control">
+        <label for="category" class="name_label">Category</label>
+        <input
+          type="text"
+          class="initial_bid"
+          name="category"
+          id="category"
+          value="<%= data.category %>"
+        />
+      </div>
+      <div class="form-control description">
+        <label for="bid__description" class="name_label"
+          >Give description that will be used to explain the bid and give user
+          the insight of what to do. you have to remember that firt line will be
+          used as summary. other lines or paragraph will be used as description.
+          Remember to attach images using below button</label
+        >
+        <div class="summary_and_description">
+          <div>
+            <small>Summary</small>
+            <textarea
+              id="bid__summary"
+              class="bid__summary"
+              name="summary"
+              placeholder="Please enter your input text"
+            >
+            <%= data.summary %>
+            </textarea>
+          </div>
+          <div>
+            <small>Description</small>
+            <textarea
+              id="bid__description"
+              class="bid__description"
+              name="description"
+              placeholder="Please enter your input text"
+            >
+            <%= data.description %>
+
+            </textarea>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn" style="width: 100px">Update</button>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer'); -%>

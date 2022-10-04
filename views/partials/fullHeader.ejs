@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src *;
+   img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+   style-src  'self' 'unsafe-inline' *"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+      worker-src blob:; 
+      child-src blob: gap:;
+      img-src 'self' blob: data:;
+      default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Halant:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>RRA Auction</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="header__nav">
+        <a href="/" class="header__logo">
+          <img
+            src="/img/pngwing.com.png"
+            alt="Home Rogo"
+            class="header__logo--img"
+          />
+          <h2 class="primary__text">RRA_Auction</h2>
+        </a>
+        <form action="/products/search" class="header__search">
+          <input
+            type="search"
+            name="searchItem"
+            id="search_item"
+            class="search_item"
+            placeholder="Search items and auction houses"
+          />
+          <button type="submit" class="search_img">
+            <img src="/img/search.png" alt="Search Item" class="search_icon" />
+          </button>
+        </form>
+        <div class="header__navigation">
+          <ul class="nav__list">
+            <% if (user) { %>
+            <li class="nav__list--item active_user_info">
+              <small>Welcome <%= user.firstName %> <%= user.lastName %></small>
+            </li>
+            <li class="nav__list--item active_user_info">
+              <a
+                href="/api/v1/user/logouth"
+                class="nav__list--item-link btn btn_outline"
+                >Logout</a
+              >
+            </li>
+            <li class="nav__list--item active_user_info">
+              <a
+                href="/user_dashboard"
+                class="nav__list--item-link btn btn_outline"
+                >Dashboard</a
+              >
+            </li>
+            <% } else { %>
+            <li class="nav__list--item deactive_user_info">
+              <a href="/register" class="nav__list--item-link btn">Register</a>
+            </li>
+            <li class="nav__list--item deactive_user_info">
+              <a href="/login" class="nav__list--item-link btn btn_outline"
+                >Sign in</a
+              >
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </nav>
+      <div class="header__contents">
+        <div class="contents__top">
+          <div class="contents__top--header">
+            <ul class="contents__list">
+              <li class="contents__list--item">
+                <a href="/" class="contents__list--link">Categories</a>
+              </li>
+              <li class="contents__list--item">
+                <a
+                  href="/products/categories/houses"
+                  class="contents__list--link"
+                  >Houses</a
+                >
+              </li>
+              <li class="contents__list--item">
+                <a
+                  href="/products/categories/computers"
+                  class="contents__list--link"
+                  >Computers</a
+                >
+              </li>
+              <li class="contents__list--item">
+                <a
+                  href="/products/categories/fashions"
+                  class="contents__list--link"
+                  >Fashions</a
+                >
+              </li>
+              <li class="contents__list--item">
+                <a
+                  href="/products/categories/furnitues"
+                  class="contents__list--link"
+                  >Furnitues</a
+                >
+              </li>
+              <li class="contents__list--item">
+                <a href="/products/categories/cars" class="contents__list--link"
+                  >Cars</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="contents__container">
+          <div class="req__container">
+            <!-- <h5 class="tertiary__text">Let's go treature-hunting</h5> -->
+            <p class="tertiary-paragraph">
+              Join the World's best auctions for on-of-a kind art, antiques &
+              luxury goods
+            </p>
+            <div class="login_start">
+              <input
+                type="search"
+                name="searchItem"
+                id="search_item"
+                class="search_item"
+                placeholder="Enter your email to join"
+              />
+              <h6 class="quadriple_text">Join</h6>
+            </div>
+          </div>
+        </div>
+        <div class="contents__encouragement">
+          <div class="auction__list--places">
+            <a href="#" class="trending_auction card">
+              <div class="texts">
+                <h5 class="quadriple__text">Trending Auctions</h5>
+                <p class="quadriple-paragraph">
+                  Click to see popular auction that contains thousands of items
+                  being auctioned daily.
+                </p>
+              </div>
+              <img src="/img/trending.png" alt="" />
+            </a>
+            <a href="#" class="trending_auction card">
+              <div class="texts">
+                <h5 class="quadriple__text">Auctions Near you</h5>
+                <p class="quadriple-paragraph">
+                  Click to see popular auction Near in district or select
+                  accordingly to your need
+                </p>
+              </div>
+              <img src="/img/near_you.png" alt="" />
+            </a>
+            <a href="#" class="trending_auction card">
+              <div class="texts">
+                <h5 class="quadriple__text">Learn how to bid</h5>
+                <p class="quadriple-paragraph">
+                  Click to see popular auction courses to teach you how to bid.
+                </p>
+              </div>
+              <img src="/img/learning.png" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

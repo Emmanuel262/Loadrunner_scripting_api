@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src *;
+   img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+   style-src  'self' 'unsafe-inline' *"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+      worker-src blob:; 
+      child-src blob: gap:;
+      img-src 'self' blob: data:;
+      default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Halant:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>RRA Auction</title>
+  </head>
+  <body>
+    <header class="header_home">
+      <div class="header__left">
+        <div class="header__left--header">
+          <a href="/index.html" class="header__logo">
+            <img
+              src="/img/pngwing.com.png"
+              alt="Home Rogo"
+              class="header__logo--img"
+            />
+            <h2 class="primary__text">RRA_Auction</h2>
+          </a>
+        </div>
+        <div class="header__left--description">
+          <h6 class="primary__text_home">Welcome to RRA_Auction</h6>
+          <p class="secondary__paragraph_home">View auction registration</p>
+          <a href="/register" class="btn btn__primary home_btn"
+            >Click to register</a
+          >
+        </div>
+      </div>
+      <div class="header__right">
+        <div class="login_form">
+          <h2 class="tertiary__text">Sign in Form</h2>
+          <p class="tertiary-paragraph">Fill the form to Sign in</p>
+          <form class="login_form--form">
+            <div class="form-group">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter full email"
+              />
+              <small class="email error"></small>
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter full password"
+              />
+              <small class="password error"></small>
+            </div>
+
+            <button type="submit" class="btn btn_form">Sign in</button>
+          </form>
+          <div class="form-group">
+            <small class="main error">Error message</small>
+
+            <a href="/forgot_password.html" class="forgot_password"
+              >Forgot password</a
+            >
+          </div>
+          <div class="loader-container loader-container-hidden">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <script>
+      const form = document.querySelector(".login_form--form");
+      const emailError = document.querySelector(".email.error");
+      const passwordError = document.querySelector(".password.error");
+      const mainError = document.querySelector(".main.error");
+      const loaderContainer = document.querySelector("loader-container");
+
+      // window.addEventListener("load", () => {
+      //   loaderContainer.style.display = "none";
+      // });
+      // window.addEventListener("load", () => {
+      //   loaderContainer.classList.add("loader-container-hidden");
+      // });
+
+      // Reset errors
+      emailError.textContent = "";
+      passwordError.textContent = "";
+      const displayLoading = () => {
+        loaderContainer.style.display = "block";
+        // loaderContainer.style.display
+      };
+
+      const hideLoading = () => {
+        loaderContainer.style.display = "none";
+      };
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = form.querySelector("#email").value;
+        const password = form.querySelector("#password").value;
+
+        hideLoading();
+        try {
+          const result = await fetch("/api/v1/user/login", {
+            method: "POST",
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+            headers: { "Content-Type": "application/json" },
+          });
+          displayLoading();
+          const data = await result.json();
+          console.log(data);
+          console.log(data.Error);
+          if (data.Error && email.length <= 0) {
+            emailError.textContent = "Incorrect Email";
+            console.log(emailError.textContent);
+
+            if (email.length <= 0) {
+              emailError.textContent = "";
+            }
+          }
+          if (data.Error && password.length <= 0) {
+            emailError.textContent = "Incorrect password";
+            console.log(passwordError.textContent);
+            if (password.length <= 0) {
+              passwordError.textContent = "";
+            }
+          }
+
+          // if (data.Error) {
+          //   if (email.length >= 0) {
+          //     emailError.textContent = "Incorrect Email";
+          //     console.log(emailError.textContent);
+          //   }
+          //   if (password.length >= 0) {
+          //     passwordError.textContent = "Incorrect Password";
+          //     console.log(passwordError.textContent);
+          //   }
+          //   mainError.textContent = data.Error;
+          //   console.log(mainError.textContent);
+          // }
+          if (data.user && data.status) {
+            location.assign("/home");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    </script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

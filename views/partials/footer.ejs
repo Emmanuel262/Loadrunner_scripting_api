@@ -1,0 +1,23 @@
+<footer>Copyright 2020 RRA Auctions</footer>
+<script>
+    const inputFile = document.querySelector("#inptFile");
+    const inputErrorMessage = document.querySelector(".img_selection_error");
+  
+    inputFile.addEventListener("change", (e) => {
+      console.log(e.target.files);
+      //   console.log(length(e.target.files));
+      const files = Array.from(e.target.files);
+      console.log(files.length);
+  
+      if (files.length > 2) {
+        inputErrorMessage.classList.add("active");
+      } else {
+        inputErrorMessage.classList.remove("active");
+      }
+    });
+  </script>
+<script src="/js/dashboard.js"></script>
+<script src="/js/main.js"></script>
+
+</body>
+</html>

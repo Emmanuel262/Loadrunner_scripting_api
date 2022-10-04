@@ -1,0 +1,339 @@
+<%- include('partials/fullHeader'); -%>
+
+<section class="dashboard">
+  <div class="dashboard__container">
+    <div class="dashboard__right">
+      <div class="dashboard__contents">
+        <div class="contents__container user active">
+          <div class="basic_info">
+            <p class="req_param">user-first-name</p>
+            <p class="req_param">user-last-name</p>
+            <p class="req_param">user-phone-number</p>
+            <p class="req_param">user-id-number</p>
+            <p class="req_param">user-role</p>
+            <button class="btn btn_edit">Click to edit</button>
+          </div>
+        </div>
+        <div class="contents__container create">
+          <div class="dashboard--container profile-edit">
+            <h1 class="primary--header">Create a bid to meet your needs</h1>
+            <form
+              action="/api/v1/products/product"
+              class="create__form"
+              autocomplete="off"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="image-edit__container">
+                <small class="img_selection_error"
+                  >Maximum number of images must be 2</small
+                >
+                <input
+                  multiple="multiple"
+                  type="file"
+                  name="product_photos"
+                  id="inptFile"
+                />
+              </div>
+              <input type="hidden" autocomplete="false" />
+              <div class="form-control">
+                <label for="productTitle" class="name_label"
+                  >Product Title</label
+                >
+                <input
+                  type="text"
+                  class="product_title"
+                  name="productTitle"
+                  id="product_title"
+                />
+              </div>
+              <div class="form-control">
+                <label for="initial_bid" class="name_label"
+                  >Initial bid value</label
+                >
+                <input
+                  type="text"
+                  class="initial_bid"
+                  name="initial_bid"
+                  id="initial_bid"
+                />
+              </div>
+              <div class="form-control">
+                <label for="location" class="name_label">Location</label>
+                <input
+                  type="text"
+                  class="initial_bid"
+                  name="location"
+                  id="location"
+                />
+              </div>
+              <div class="form-control">
+                <label for="category" class="name_label">Category</label>
+                <input
+                  type="text"
+                  class="initial_bid"
+                  name="category"
+                  id="category"
+                />
+              </div>
+
+              <!-- <div class="form-control">
+                <label for="city" class="name_label">Your city</label>
+                <input
+                  type="text"
+                  class="article__title"
+                  name="city"
+                  id="bid_city"
+                />
+              </div> -->
+              <div class="form-control text_area">
+                <label for="bid__description" class="name_label"
+                  >Give description that will be used to explain the bid and
+                  give user the insight of what to do. you have to remember that
+                  firt line will be used as summary. other lines or paragraph
+                  will be used as description. Remember to attach images using
+                  below button</label
+                >
+                <div class="summary_and_description">
+                  <div>
+                    <small>Summary</small>
+                    <textarea
+                      id="bid__summary"
+                      class="bid__summary"
+                      name="summary"
+                      placeholder="Please enter your input text"
+                    >
+                    </textarea>
+                  </div>
+                  <div>
+                    <small>Description</small>
+                    <textarea
+                      id="bid__description"
+                      class="bid__description"
+                      name="description"
+                      placeholder="Please enter your input text"
+                    >
+                    </textarea>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn" style="width: 100px">
+                Create
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="contents__container bid_list">
+          <div class="bid_lists">
+            <div class="auctions__container--cards">
+              <h6 class="tertiary__text">Your auctions</h6>
+              <div class="cards">
+                <% result.forEach((product) => { %>
+                <div class="card">
+                  <img
+                    src="<%= product.product_photos[0] %>"
+                    crossorigin="anonymous"
+                    alt=""
+                    class="card__image main"
+                  />
+                  <img
+                    src="http://res.cloudinary.com/university-of-rwanda/image/upload/v1648466001/RRA_auction/zejqzbux96bfnyhe3enc.png"
+                    alt=""
+                  />
+                  <p class="quadriple-paragraph">
+                    <%= product.summary %> <%= product.product_photos[0] %>
+                  </p>
+                  <p class="quatinary-paragraph time">
+                    Starts
+                    <strong
+                      ><%= product.created_at.toLocaleDateString(undefined,
+                      options) %></strong
+                    >
+                  </p>
+                  <p class="quatinary-paragraph place">
+                    Kicukiro - Kigali - Rwanda
+                  </p>
+                  <p class="left_time">15 Hrs Left</p>
+                  <div class="available_buttons">
+                    <a href="./details.html" class="btn__details btn"
+                      >Details</a
+                    >
+                    <% if (user.role == 'admin') {%>
+                    <a
+                      href="/api/v1/products/edit_product/<%= product._id %>"
+                      class="btn btn__edit"
+                      >Edit</a
+                    >
+                    <form
+                      class="delete__form btn btn__delete"
+                      action="/api/v1/products/delete/<%= product._id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button type="submit">Delete</button>
+                    </form>
+                    <% } %>
+                  </div>
+                </div>
+                <%}) %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contents__container bidders">
+          <table class="bidders_table table">
+            <thead>
+              <tr>
+                <td>No</td>
+                <td>Full names</td>
+                <td>email address</td>
+                <td>contacts</td>
+                <td>bids</td>
+                <td>id_number</td>
+                <td>price</td>
+                <td>paid</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Uwimana Francis</td>
+                <td>francis@gmail.com</td>
+                <td>+250798xxxxx</td>
+                <td class="needed_class_length">
+                  <small>Bid-number #2</small><small>Bid-number #3</small
+                  ><small>Bid-number #4</small>
+                </td>
+                <td>1119273656783434-1</td>
+                <td>30980320398</td>
+                <td>Uncompleted</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Uwimana Francis</td>
+                <td>francis@gmail.com</td>
+                <td>+250798xxxxx</td>
+                <td>bids-house #2</td>
+                <td>1119273656783434-2</td>
+                <td>203709000</td>
+                <td>Completed</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Uwimana Francis</td>
+                <td>francis@gmail.com</td>
+                <td>+250798xxxxx</td>
+                <td>bids-house #2</td>
+                <td>1119273656783434-3</td>
+                <td>30000000</td>
+                <td>Completed</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Uwimana Francis</td>
+                <td>francis@gmail.com</td>
+                <td>+250798xxxxx</td>
+                <td>bids-house #2</td>
+                <td>1119273656783434-3</td>
+                <td>30000000</td>
+                <td>Completed</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard__intro--info">
+      <div class="first_quadrant">
+        <a href="./index.html" class="back_home">Home</a>
+        <h6 class="tertiary__text">Available activities</h6>
+      </div>
+      <div class="req_info--left">
+        <p class="req_info">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+          doloribus magnam accusantium dolore? Temporibus quia inventore odio?
+          Ipsam temporibus debitis voluptatibus placeat expedita doloremque, rem
+          natus, obcaecati quo tenetur nisi!
+        </p>
+      </div>
+      <div class="req_info--right">
+        <div class="user-img">
+          <i class="fa fa-user fa-4x" aria-hidden="true"></i>
+        </div>
+        <p class="user_name">user-name/email</p>
+      </div>
+    </div>
+    <div class="dashboard__left">
+      <div class="req_list">
+        <ul class="req_lists">
+          <% if (user.role == 'admin') { %>
+          <li class="req_lists--item user active">
+            <a href="#" class="req_lists--link">User Account</a>
+          </li>
+          <li class="req_lists--item create">
+            <a href="#" class="req_lists--link">Create a Bid</a>
+          </li>
+          <li class="req_lists--item bidders">
+            <a href="#" class="req_lists--link">bidders and bid</a>
+          </li>
+          <li class="req_lists--item bid_list">
+            <a href="#" class="req_lists--link">Bid List</a>
+          </li>
+          <% } else { %>
+          <li class="req_lists--item user active">
+            <a href="#" class="req_lists--link">User Account</a>
+          </li>
+          <li class="req_lists--item bid_list">
+            <a href="#" class="req_lists--link">Bid List</a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <script>
+  const deleteForm = document.querySelector(".delete__form");
+  // const editForm = document.querySelector(".edit__form")
+
+  deleteForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    try {
+      const result = await fetch("/api/v1/products/delete/623f734fec366a43cbe327d9", {
+        method: 'DELETE',
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await result.json();
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  })
+</script> -->
+
+<!-- <script>
+  // passwordError.textContent = "";
+    try {
+      const result = await fetch("/api/v1/user/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await result.json();
+      console.log(data);
+      // if (data.errors) {
+      //   emailError.textContent = data.errors.email;
+      //   passwordError.textContent = data.errors.password;
+      // }
+      if (data.user && data.status) {
+        location.assign("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+</script> -->
+<%- include('partials/footer'); -%>

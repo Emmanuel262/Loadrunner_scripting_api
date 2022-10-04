@@ -1,0 +1,126 @@
+<%- include('partials/header'); -%>
+
+<section class="login_section">
+  <div class="login_container signup">
+    <div class="login_form">
+      <h2 class="tertiary__text">Register Form</h2>
+      <p class="tertiary-paragraph">Fill the form to register</p>
+      <form class="login_form--form">
+        <div class="form-group">
+          <input
+            type="text"
+            name="name"
+            id="fname"
+            placeholder="Enter first name"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            name="name"
+            id="lname"
+            placeholder="Enter last name"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="number"
+            name="name"
+            id="idNumber"
+            placeholder="Enter ID Number"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="number"
+            name="phoneNumber"
+            id="phNumber"
+            placeholder="Enter Phone Number"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter email"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter full password"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            name="password"
+            id="cpassword"
+            placeholder="Confirm password"
+          />
+        </div>
+        <button type="submit" class="btn btn_form">Register</button>
+      </form>
+      <a href="/forgot_password.html" class="forgot_password"
+        >Forgot password</a
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector(".login_form--form");
+  const emailError = document.querySelector(".email.error");
+  const passwordError = document.querySelector(".password.error");
+
+  // // Reset errors
+  // emailError.textContent = "";
+  // passwordError.textContent = "";
+
+  form.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const firstName = form.querySelector("#fname").value;
+    const lastName = form.querySelector("#lname").value;
+    const idNumber = form.querySelector("#idNumber").value;
+    const phoneNumber = form.querySelector("#phNumber").value;
+    const email = form.querySelector("#email").value;
+    const password = form.querySelector("#password").value;
+    const passwordConfirm = form.querySelector("#cpassword").value;
+
+    // // get the values
+    // const email = form.email.value
+    // const password = form.password.value
+
+    try {
+      const result = await fetch("/api/v1/user/register", {
+        method: "POST",
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          idNumber,
+          phoneNumber,
+          email,
+          password,
+          passwordConfirm,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await result.json();
+      console.log(data);
+      if (data.errors) {
+        emailError.textContent = data.errors.email;
+        passwordError.textContent = data.errors.password;
+      }
+      if (data.user && data.status) {
+        location.assign("/home");
+      }
+    } catch (error) {
+      console.log(error);
+      location.assign("/login");
+    }
+  });
+</script>
+<%- include('partials/footer'); -%>

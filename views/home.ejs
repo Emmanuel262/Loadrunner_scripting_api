@@ -1,0 +1,104 @@
+<%- include('partials/fullHeader'); -%>
+
+<section class="auctions">
+  <h3 class="secondary__text">
+    The list of all available octions are present here. traverse them and see
+    what suit you.
+  </h3>
+  <div class="auctions__container">
+    <div class="auctions__container--navigator">
+      <div class="navigator_card">
+        <ul class="navigator__list">
+          <li class="navigator__list--item">
+            <a href="#" class="navigator__list--link">Current Auction</a>
+          </li>
+          <li class="navigator__list--item">
+            <a href="#" class="navigator__list--link">Upcomming Auction</a>
+          </li>
+          <li class="navigator__list--item">
+            <a href="#" class="navigator__list--link">Completed Auction</a>
+          </li>
+          <li class="navigator__list--item">
+            <a href="#" class="navigator__list--link">Popular Auctions</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="auctions_contains--list">
+      <div class="auctions__container--cards">
+        <% if (result.length <= 0) { %>
+
+        <div class="error_contains">
+          <img src="/img/operations-icon.svg" alt="" class="ops_error" />
+          <h2 class="no_categ_available">
+            OPS no related category yet created.
+          </h2>
+        </div>
+        <% } else { %>
+
+        <h6 class="tertiary__text">Upcomming auctions</h6>
+        <div class="cards">
+          <% result.forEach((product) => { %>
+          <a href="/<%= product._id %>" class="card">
+            <img
+              src="<%= product.product_photos[0].replace('./', '/') %>"
+              alt="Watch_1"
+              class="card__image main"
+            />
+            <p class="quadriple-paragraph"><%= product.summary %></p>
+            <p class="quatinary-paragraph time">
+              Starts
+              <strong
+                ><%= product.created_at.toLocaleDateString(undefined, options)
+                %></strong
+              >
+            </p>
+            <p class="quatinary-paragraph place">
+              Initial Bid <strong><%= product.initial_bid %></strong>
+            </p>
+            <p class="left_time">15 Hrs Left</p>
+          </a>
+          <%}) %>
+        </div>
+      </div>
+      <div class="auctions__container--cards">
+        <h6 class="tertiary__text">Current auctions</h6>
+        <div class="cards">
+          <div class="card current">
+            <img src="/img/watch.jpg" alt="Watch_1" class="card__image main" />
+            <p class="quadriple-paragraph">best house ever to bid on.</p>
+            <p class="quatinary-paragraph time">
+              Starts <strong>Mar 27, 2022 5:00 PM GMT +2</strong>
+            </p>
+            <p class="quatinary-paragraph place">Kicukiro - Kigali - Rwanda</p>
+            <p class="status">Live</p>
+            <a href="#" class="bid_now">Bid Now</a>
+          </div>
+          <div class="card current">
+            <img src="/img/watch.jpg" alt="Watch_1" class="card__image main" />
+            <p class="quadriple-paragraph">best house ever to bid on.</p>
+            <p class="quatinary-paragraph time">
+              Starts <strong>Mar 27, 2022 5:00 PM GMT +2</strong>
+            </p>
+            <p class="quatinary-paragraph place">Kicukiro - Kigali - Rwanda</p>
+            <p class="status">Live</p>
+            <a href="#" class="bid_now">Bid Now</a>
+          </div>
+          <div class="card current">
+            <img src="/img/watch.jpg" alt="Watch_1" class="card__image main" />
+            <p class="quadriple-paragraph">best house ever to bid on.</p>
+            <p class="quatinary-paragraph time">
+              Starts <strong>Mar 27, 2022 5:00 PM GMT +2</strong>
+            </p>
+            <p class="quatinary-paragraph place">Kicukiro - Kigali - Rwanda</p>
+            <p class="status">Live</p>
+            <a href="#" class="bid_now">Bid Now</a>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer'); -%>

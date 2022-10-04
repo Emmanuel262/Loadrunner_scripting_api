@@ -1,0 +1,75 @@
+<%- include('partials/fullHeader'); -%>
+
+<section class="product_details">
+  <div class="product_details--container">
+    <div class="product_details--images">
+      <div class="main_images">
+        <!-- <img src="/img/watch.jpg" alt="" class="prim_image" /> -->
+        <img
+          src="<%= product.product_photos[0] %>"
+          crossorigin="anonymous"
+          alt=""
+          class="prim_image"
+        />
+      </div>
+      <div class="additional_images">
+        <% product.product_photos.forEach((photo) => { %>
+        <img
+          src="<%= photo %>"
+          crossorigin="anonymous"
+          alt=""
+          class="sec_image"
+        />
+        <% })%>
+
+        <!-- <img src="/img/watch.jpg" alt="" class="sec_image" /> -->
+        <!-- <img src="/img/watch_2.jpeg" alt="" class="sec_image" /> -->
+        <!-- <img src="/img/watch_3.jpg" alt="" class="sec_image" /> -->
+      </div>
+    </div>
+    <div class="product_details--details">
+      <h6 class="tertiary__text"><%= product.productTitle %></h6>
+      <p class="tertiary-paragraph"><%= product.summary %></p>
+      <p class="tertiary-paragraph bid">
+        Initial bid: <strong><%= product.initial_bid %></strong>
+      </p>
+      <p class="tertiary-paragraph bid">
+        Location: <strong><%= product.location %></strong>
+      </p>
+      <ul class="list">
+        <% product.bidders.sort(function(a, b) {return b - a}) %> <%
+        uniqueBidders.forEach((bidder) => { %>
+        <li class="list--item">
+          <%= bidder.firstName %> <%= bidder.lastName %>
+          <strong><%= bidder.bid.price %></strong>
+        </li>
+        <% })%>
+      </ul>
+      <button class="btn bid_now_btn">Bid now</button>
+      <div class="bid_form--container">
+        <form
+          class="bid_form"
+          action="/api/v1/products/bid/<%= product._id %>"
+          autocomplete="off"
+          method="POST"
+        >
+          <h6 class="quadriple__text">Confirm by your phone number</h6>
+          <div class="form-group">
+            <input
+              type="number"
+              name="bid"
+              id="bidValue"
+              placeholder="Enter the amount"
+            />
+          </div>
+          <button type="submit" class="btn btn_form">Send</button>
+        </form>
+      </div>
+    </div>
+    <div class="product_details--description">
+      <p class="tertiary-paragraph"><%= product.description %></p>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer'); -%>

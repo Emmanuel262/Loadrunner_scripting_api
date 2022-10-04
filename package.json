@@ -1,0 +1,59 @@
+{
+  "name": "liz_case_study",
+  "version": "1.0.0",
+  "description": "Implementation of RRA online auction",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./liz_case/app.js",
+    "build": "babel --copy-files liz_case_build --out-dir liz_case",
+    "dev": "nodemon liz_case_build/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emmanuel262/liz_case_study.git"
+  },
+  "author": "Emmanuel ASIFIWE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emmanuel262/liz_case_study/issues"
+  },
+  "homepage": "https://github.com/Emmanuel262/liz_case_study#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.2",
+    "cloudinary": "^1.28.1",
+    "consolidate": "^0.16.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.3.0",
+    "helmet": "^5.0.2",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mongodb": "^4.4.1",
+    "mongoose": "^6.2.5",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "twilio": "^3.81.0",
+    "validator": "^13.7.0",
+    "xss": "^1.0.11",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/runtime": "^7.0.0-beta.55",
+    "@types/dotenv": "^8.2.0",
+    "babel-polyfill": "^6.26.0"
+  }
+}
